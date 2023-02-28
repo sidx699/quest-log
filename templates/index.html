@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Home
+    {% endblock title %}
+{% block body %}
+        
+    
+
+    <div class="container">
+      <form action="/" method="POST">
+        <div class="mb-3">
+          <h3>Add Quest</h3>
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" name="title" id="title" placeholder="Enter your quest title">
+        </div>
+        <div class="mb-3">
+          <label for="desc" class="form-label">Description</label>
+          <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+
+    <div class="container my-3" >
+      <h2>My Tasks</h2>
+      {% if allQuests|length==0 %}
+      <div class="alert alert-warning" role="alert">
+        No quests available!
+      </div>
+      {% else %}
+        
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for quest in allQuests %}
+          
+
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{quest.title}}</td>
+            <td>{{quest.desc}}</td>
+            <td>{{quest.date_created}}</td>
+            <td>
+              <a href="/update/{{quest.id}}" type="button" class="btn btn-outline-info mx-2">Update</a>
+              <a href="/delete/{{quest.id}}" type="button" class="btn btn-outline-danger mx-2">Delete</a>
+            </td>
+          </tr>
+            
+          {% endfor %}
+          
+        </tbody>
+      </table>
+
+      {% endif %}
+    </div>
+
+{% endblock body %}
+
+    
